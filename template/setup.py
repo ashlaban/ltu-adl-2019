@@ -613,7 +613,7 @@ def set_up_logging(parser, experiment_name, output_folder, quiet, args_dict, deb
     logging.info('Initialize Tensorboard SummaryWriter')
 
     # Add all parameters to Tensorboard
-    writer = SummaryWriter(log_dir=log_folder)
+    writer = SummaryWriter(logdir=log_folder)
     writer.add_text('Args', json.dumps(args_dict))
 
     return log_folder, writer
