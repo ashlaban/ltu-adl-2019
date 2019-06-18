@@ -122,6 +122,7 @@ def set_up_model(output_channels, model_name, pretrained, no_cuda, resume, load_
             logging.info("Loading checkpoint '{}'".format(resume))
             checkpoint = torch.load(resume)
             best_value = checkpoint['best_value']
+            start_epoch = checkpoint['start_epoch']
             model.load_state_dict(checkpoint['state_dict'])
             optimizer.load_state_dict(checkpoint['optimizer'])
             # val_losses = [checkpoint['val_loss']] #not used?
@@ -132,9 +133,10 @@ def set_up_model(output_channels, model_name, pretrained, no_cuda, resume, load_
             sys.exit(-1)
     else:
         best_value = 0.0
+        start_epoch = 0
 
     # Some of these might be None depending on the input parameters
-    return model, criterion, optimizer, best_value
+    return model, criterion, optimizer, best_value, start_epoch
 
 
 def _load_class_frequencies_weights_from_file(dataset_folder, inmem, workers, runner_class, **kwargs):
